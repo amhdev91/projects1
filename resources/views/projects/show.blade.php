@@ -44,9 +44,9 @@
             <div class="card">
                 <div class="card-body">
 
-                    <form action="/projects/{{$project->id}}" method="POST">
+                    <form action={{'/projects/'(.$project->id)}} method="POST">
                         @csrf
-                        @method("UPDATE")
+                        @method("PATCH")
                         <select name="status" class="custom-select" onchange="this.form.submit()">
                           <option value="0" {{($project->status==0) ? 'selected' : ""}}>قيد الانجاز</option>
                           <option value="1" {{($project->status==1) ? 'selected' : ""}}>ملغي</option>
