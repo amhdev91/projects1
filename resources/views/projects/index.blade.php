@@ -7,7 +7,7 @@
 
 
 
-<header dir="rtl">
+<header class="d-flex justify-content-between align-items-center my-5 " dir="rtl">
     <div>
         <a href="/projects">المشاريع</a>
     </div>
@@ -18,7 +18,7 @@
 </header>
 
 <section>
-    <div class="row">
+    <div class="row" dir="rtl">
     @forelse ($projects as $project)
 
     <div class="col-4 mt-4">
@@ -26,22 +26,22 @@
             <div class="card-body">
                 <div class="status">
                     @switch($project->status)
-                    @case(1)
-                    <span class="text-sucess">مكتمل</span>
-                    @break
-                    @case(2)
-                    <span class="text-danger">ملغي</span>
-                    @break
-                    @default
-                    <span class="text-warning">قيد الانجاز </span>
-                    @endswitch
-                    <h5>
-                        <a href="/projects/{{ $project->id }}">{{ $project->title }}</a>
-                    </h5>
-                    <div class="text mt-4">
-                        {{ Str::limit($project->description,100) }}
+                        @case(2)
+                        <span class="text-info">مكتمل</span>
+                            @break
+                        @case(1)
+                        <span class="text-denger">ملغي</span>
+                            @break
+                        @default
+                        <span class="text-success">قيد الانجاز</span>
+                           @endswitch
+                          <h5 class="font-weight-bold card-title">
+                            <a href="/projects/{{ $project->id }}">{{ $project->title }} </a>
+                          </h5>
+                    <div class="card-text mt-4">
+                        {{ Str::limit($project->description,150) }}
                     </div>
-                    @include ('projects.footer')
+                    @include('projects.footer')
                 </div>
             </div>
         </div>

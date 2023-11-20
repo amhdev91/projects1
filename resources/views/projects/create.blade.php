@@ -2,7 +2,6 @@
 
 @section('title','انشاء مشروع جديد')
 
-
 @section('content')
 
 <div class="raw justify-content-center text-right">
@@ -31,7 +30,7 @@
             @enderror
 
         </div>
-        <div class="form-group">
+        <div class="form-group mt-3">
             <button type="submit" class="btn btn-primary">حفظ</button>
             <a href="/projects" class="btn btn-light"> الغاء</a>
         </div>
