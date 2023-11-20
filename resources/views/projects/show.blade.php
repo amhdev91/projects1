@@ -44,7 +44,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <form action={{'/projects/'(.$project->id)}} method="POST">
+                    <form action="/projects/{{$project->id}}" method="POST">
                         @csrf
                         @method("PATCH")
                         <select name="status" class="custom-select" onchange="this.form.submit()">
