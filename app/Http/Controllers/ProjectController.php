@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Models\project;
 use Illuminate\Http\Request;
+//use SebastianBergmann\CodeCoverage\Report\Xml\Project as XmlProject;
 
 class ProjectController extends Controller
 {
-
-
     public function __construct()
     {
         $this->middleware('auth');
+
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $projects = auth()->user()->projects;
-        return view('projects.index', compact('projects'));
+        
+        return view('projects.index',compact('projects'));
+
     }
 
     /**
@@ -27,8 +27,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
-    return view('projects.create');
+        return view('projects.create');
     }
 
     /**
@@ -36,31 +35,29 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-      $data =   $request->validate([
+        $data = request()->validate([
             'title' => 'required',
-            'description'=> 'required',
+            'description' => 'required'
         ]);
 
-      $data['user_id'] = auth()->id();
-
-      Project::create($data);
-
-
-        return redirect()->route('projects.index');
+        $data['user_id'] = auth()->id();
+        Project::create($data);
+        return redirect('/projects');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(project $project)
     {
-        return view('projects.show', compact('project'));
+        return view('projects.show' , compact('project'));
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(project $project)
     {
         //
     }
@@ -70,19 +67,32 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+<<<<<<< HEAD
        $project->update([
         'status' => request('status')
        ]);
 
        return redirect(' /projects/'.$project->id);
        
+=======
+        $project = project::find($project->id);
+
+        
+
+        $project->status = $request->status;
+
+        $project->save();
+ 
+        return redirect('/projects');
+>>>>>>> 0d99b03 (Fix project status update bug)
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(project $project)
     {
-       
+        $project->delete();
+        return redirect('/projects');
     }
 }

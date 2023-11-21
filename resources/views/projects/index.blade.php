@@ -13,7 +13,7 @@
     </div>
 
     <div>
-        <a href="/projects/create">مشروع جديد</a>
+        <a href="/projects/create " class="btn btn-primary btn-lg d-inline-flex align-items-center" role="button"> انشئ مشروع جدبد</a>
     </div>
 </header>
 
