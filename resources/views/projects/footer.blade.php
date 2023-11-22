@@ -20,7 +20,7 @@
 
 </div>
         <div class="d-flex align-items-center center mr-auto">
-          <form action="projects/{{ $project->id }}" method="POST">
+          <form action="{{ route('projects.destroy',$project->id) }}" method="POST">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-link text-danger"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -29,5 +29,4 @@
           </svg></button>
     </form>
    </div>
-</div>
 </div>

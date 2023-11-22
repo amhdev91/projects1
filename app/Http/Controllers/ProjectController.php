@@ -67,24 +67,15 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-<<<<<<< HEAD
-       $project->update([
-        'status' => request('status')
-       ]);
 
-       return redirect(' /projects/'.$project->id);
-       
-=======
-        $project = project::find($project->id);
-
+        $project->update([
+            'status' => request('status')
+        ]);
         
+       $project->save();
 
-        $project->status = $request->status;
-
-        $project->save();
- 
-        return redirect('/projects');
->>>>>>> 0d99b03 (Fix project status update bug)
+       return redirect('/projects/'.$project->id);
+       
     }
 
     /**

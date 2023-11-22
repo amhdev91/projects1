@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('body');
+            $table->boolean('done')->default(true);
+            $table->foreignId('project_id');
             $table->timestamps();
         });
     }

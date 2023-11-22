@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,5 @@ Route::resources([
 
 ]);
 
+Route::post('/projects/{project}/tasks', [TaskController::class, 'store']);
+Route::patch('/projects/{project}/tasks/{task}', [TaskController::class, 'update']);
