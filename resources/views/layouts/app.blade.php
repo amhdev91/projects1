@@ -6,8 +6,17 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @guest
+        @if (Route::has('login') || Route::has('create'))
+            <title>{{ config('app.name', 'Laravel') }} - @yield('title', 'Default Title')</title>
+        @else
+            <title>{{ config('app.name', 'Laravel') }}</title>
+        @endif
+    @else
+        <title>{{ config('app.name', 'Laravel') }} - @yield('title', isset($project) ? $project->title : '')</title>
+    @endguest
 
-    <title>{{ config('app.name', 'Laravel') }} -@yield('title','')</title>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -15,6 +24,12 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!--style-->
+    <style>
+        .checked {
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
     <div id="app " >
