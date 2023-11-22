@@ -33,3 +33,4 @@ Route::resources([
 
 Route::post('/projects/{project}/tasks', [TaskController::class, 'store']);
 Route::patch('/projects/{project}/tasks/{task}', [TaskController::class, 'update']);
+
