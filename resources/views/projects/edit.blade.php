@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
-@section('title','انشاء مشروع جديد')
+@section('title','تعديل المشروع')
 
 @section('content')
 
 <div class="raw justify-content-center text-right">
     <div class="col-10">
         <h3 class="text-center">
-            انشاء مشروع جديد
+            تعديل المشروع
         </h3>
 
-    <form action="/projects" method="POST" dir="rtl">
-   @include('projects.form',[ 'project' => new App\Models\Project() ])
+    <form action="/projects/{{$project->id}}" method="POST" dir="rtl">
+        @method('PATCH')
+   @include('projects.form')
+
         <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary">حفظ</button>
+            <button type="submit" class="btn btn-primary">  تعديل</button>
             <a href="/projects" class="btn btn-light"> الغاء</a>
         </div>
     </form>
