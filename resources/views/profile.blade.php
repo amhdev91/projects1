@@ -1,56 +1,64 @@
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Profile Page</title>
-    <style>
-        /* Add your CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        
-        .profile-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-        
-        .profile-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .profile-email {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .profile-bio {
-            font-size: 18px;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="{{ $profilePicture }}" alt="Profile Picture" class="profile-picture">
-        <h1 class="profile-name">{{ $name }}</h1>
-        <p class="profile-email">{{ $email }}</p>
-        <p class="profile-bio">{{ $bio }}</p>
+@section('title','الصفحة الشخصية')
+
+
+@section('content')
+
+<div class="row " >
+    <div class="col-md-6 mx-auto ">
+        <div class="card p-2">
+            <div class="text-center">
+                <img src={{asset("storage/" .auth()->user()->image)}} alt="" height="82px" width="82px">
+
+
+                <h3>{{auth()->user()->name }}</h3>
+            </div>
+            <div class="card-body">
+                <form action="/profile" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PATCH')
+
+                    <div class="form-group">
+                        <label for="name"> الاسم </label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{auth()->user()->name }}" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email"> البريد الالكتروني</label>
+                        <input type="email" name="email" class="form-control" id="email" value="{{auth()->user()->email}}" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">تعديل كلمة المرور</label>
+                        <input type="password" name="password" id="password" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-confirmation">تاكيد كلمة المرور</label>
+                        <input type="password" name="password-confirmation" id="password-confirmation" class="form-control" autocomplete="off">
+                    </div>
+
+                    <div class="from-group">
+                        <label for="image">الصورة الشخصية</label>
+                        <div class="custom-file">
+                            <input type="file" name="image" id="image" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="from-group d-flex mt-5" dir="ltr">
+                        <button type="submit" class="btn btn-primary mr-2">حفظ</button>
+                        <button type="submit" class="btn btn-light" form="logout">تسجيل الخروج </button>
+                    </div>
+                </form>
+
+                <form action="/logout" id="logout" method="POST">
+                    @csrf
+                    
+                </form>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+@endsection
+
