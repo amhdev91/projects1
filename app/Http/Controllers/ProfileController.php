@@ -17,7 +17,7 @@ class ProfileController extends Controller
 
     public function index()
     {
-        
+         
         return view('profile');
 
     }
@@ -25,30 +25,35 @@ class ProfileController extends Controller
     public function update()
     {
 
-  $userId = auth()->id();
+        $userId = auth()->id();
 
 $data = request()->validate([
-    'name' => 'sometimes|required|min:3', // 'sometimes' allows for partial updates
-    'email' => 'sometimes|required|email',
-    'password' => 'nullable|confirmed|min:8',
-    'image' => 'nullable|mimes:jpeg,jpg,png',
+    'name' => ['nullable', 'min:3'],
+    'email' => ['nullable', 'email'],
+    'password' => ['nullable', 'confirmed', 'min:8'],
+    'image' => ['nullable', 'mimes:jpeg,jpg,png'],
 ]);
 
-$user = User::findOrFail($userId);
-
-if (request()->has('password')) {
+if (request()->has('password') && !empty(request('password'))) {
     $data['password'] = Hash::make(request('password'));
-}
+  } else {
+    unset($data['password']);
+  
 
 if (request()->hasFile('image')) {
-    $path = request('image')->store('users');
-    $data['image'] = $path; // store only the filename
+    $path = request('image')->store('users', 'public');
+    $data['image'] = $path;
 }
 
-$user->update($data);
+$user = User::findOrFail($userId)->update($data);
 
-return back()->with('success', 'User updated successfully.'); // Adding success message
+// Update user's attributes with the validated data
+
+
+
+return back();
 
     }
 
+}
 }

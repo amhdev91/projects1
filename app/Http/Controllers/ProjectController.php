@@ -15,6 +15,7 @@ class ProjectController extends Controller
     }
 
     public function index()
+    
     {
         $projects = auth()->user()->projects;
         
@@ -50,6 +51,7 @@ class ProjectController extends Controller
      */
     public function show(project $project)
     {
+        abort_if($project->user_id !== auth()->user()->id , 403);
         return view('projects.show' , compact('project'));
         
     }
@@ -59,6 +61,7 @@ class ProjectController extends Controller
      */
     public function edit(project $project)
     {
+        abort_if($project->user_id !== auth()->user()->id , 403);
         return view('projects.edit',compact('project'));
     }
 
